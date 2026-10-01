@@ -1,0 +1,108 @@
+.feedback-container {
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+  background: #f9f4ef;
+  min-height: 100vh;
+}
+
+.feedback-container h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto 30px;
+}
+
+.feedback-form textarea {
+  min-height: 120px;
+  resize: vertical;
+  border-radius: 6px;
+  border: 2px solid #444;   /* darker border */
+  padding: 12px;
+  font-size: 15px;
+  background: #fff;         /* white background */
+  color: #000;              /* black text */
+}
+
+.feedback-form button {
+  background: #e67e22;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.feedback-form button:hover {
+  background: #d35400;
+  transform: scale(1.05);
+}
+
+.feedback-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.feedback-card {
+  border-radius: 12px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feedback-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.feedback-card h3 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.feedback-card p {
+  color: #555;
+  margin: 4px 0;
+}
+
+.feedback-form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid #444;
+  font-size: 15px;
+  background: #fff;
+  color: #000;
+}
+
+.feedback-actions {
+  margin-top: 8px;
+}
+
+.feedback-actions button {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+

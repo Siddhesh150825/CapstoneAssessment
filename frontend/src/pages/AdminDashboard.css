@@ -1,0 +1,191 @@
+.admin-container {
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.admin-tabs button {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  background: #f8f9fa;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.admin-tabs button.active {
+  background: #007bff;
+  color: white;
+}
+
+.admin-tabs button:hover {
+  background: #e2e6ea;
+}
+
+.admin-content {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.user-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 220px;
+  text-align: center;
+}
+
+.user-card h4 {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.user-card span {
+  font-size: 14px;
+  color: #777;
+}
+
+.manage-menu {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.manage-menu h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Form styling */
+.menu-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.menu-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 180px;
+  font-size: 14px;
+}
+
+.menu-form button {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.menu-form button:hover {
+  background: linear-gradient(135deg, #0056b3, #003f7f);
+}
+
+/* Menu list styling */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* two items per row */
+  gap: 15px;
+}
+
+li {
+  background: #f9fafc;
+  border-radius: 12px;
+  padding: 15px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+li:hover {
+  transform: translateY(-3px);
+}
+
+/* Buttons inside list */
+li button {
+  margin-left: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+li button:first-of-type {
+  background: #dc3545;
+  color: white;
+}
+
+li button:last-of-type {
+  background: #ffc107;
+  color: #333;
+}
+
+li button:first-of-type:hover {
+  background: #c82333;
+}
+
+li button:last-of-type:hover {
+  background: #e0a800;
+}
+
+.menu-thumb {
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.user-actions {
+  margin-top: 8px;
+}
+
+.user-actions button {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
