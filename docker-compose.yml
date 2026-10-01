@@ -5,17 +5,10 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/restaurant
-      - JWT_SECRET=supersecret
-    depends_on:
-      - mongo
+      - MONGO_URI=mongodb+srv://siddheshpednekar_db_user:Restaurant%40123@demoappcluster.dpg1arx.mongodb.net/SmartRestaurantDB?retryWrites=true&w=majority
+      - JWT_SECRET=supersecretkey
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-
-  mongo:
-    image: mongo:5
-    ports:
-      - "27017:27017"

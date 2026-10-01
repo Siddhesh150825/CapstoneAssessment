@@ -1,17 +1,49 @@
-name: CI/CD
+name: SmartRestaurantManagementSystem
 
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:5
+        ports:
+          - 27017:27017
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Build Docker images
-        run: docker-compose build
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
       - name: Run backend tests
-        run: docker-compose run backend npm test
-      - name: Deploy
-        run: echo "Deploy to cloud provider here"
+        working-directory: backend
+        run: npm test
+
+      - name: Run frontend build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: Siddhesh/smart-restaurant:latest
