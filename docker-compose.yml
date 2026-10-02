@@ -2,6 +2,7 @@ version: "3.8"
 services:
   backend:
     build: ./backend
+    image: siddheshpednekar2026/smartrestaurant-backend:latest
     ports:
       - "5000:5000"
     environment:
@@ -10,5 +11,6 @@ services:
 
   frontend:
     build: ./frontend
+    image: siddheshpednekar2026/smartrestaurant-frontend:latest
     ports:
       - "3000:3000"
