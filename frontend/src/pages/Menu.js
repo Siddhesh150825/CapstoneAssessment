@@ -12,8 +12,8 @@ const Menu = ({ cartItems, setCartItems }) => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const res = await api.get("/menu");
-        setMenuItems(res.data);
+        const res = await api.get("/api/menu");
+        setMenuItems(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         console.error("Error fetching menu:", err);
       } finally {
@@ -23,7 +23,6 @@ const Menu = ({ cartItems, setCartItems }) => {
     fetchMenu();
   }, []);
 
-  // ✅ Add item to cart with quantity tracking
   const addToCart = (item) => {
     const existing = cartItems.find((i) => i._id === item._id);
     if (existing) {
@@ -37,9 +36,11 @@ const Menu = ({ cartItems, setCartItems }) => {
     }
   };
 
-  const filteredItems = menuItems.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredItems = Array.isArray(menuItems)
+  ? menuItems.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    )
+  : [];
 
   return (
     <div className="menu-container">
@@ -79,7 +80,7 @@ const Menu = ({ cartItems, setCartItems }) => {
             ))}
           </div>
 
-          {/* 🛒 View Cart Button */}
+          {}
           {cartItems.length > 0 && (
             <div style={{ textAlign: "center", marginTop: "30px" }}>
               <button
@@ -91,7 +92,7 @@ const Menu = ({ cartItems, setCartItems }) => {
             </div>
           )}
 
-          {/* 📌 New Navigation Buttons */}
+          {}
           <div style={{ textAlign: "center", marginTop: "30px" }}>
             <button
               className="menu-btn"

@@ -13,7 +13,7 @@ function Menu() {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/menu", {
+        const res = await axios.get("${process.env.REACT_APP_API_URL}/api/menu", {
           params: { search, category }
         });
         setItems(res.data);

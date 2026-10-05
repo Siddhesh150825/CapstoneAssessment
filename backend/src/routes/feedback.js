@@ -13,7 +13,7 @@ router.post("/", auth(["customer"]), async (req, res) => {
     }
 
     const feedback = new Feedback({
-      customerId: req.user.id,
+      customerId: req.user._id,
       rating,
       comment
     });

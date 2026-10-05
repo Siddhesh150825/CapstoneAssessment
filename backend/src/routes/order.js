@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", auth(["customer"]), async (req, res) => {
   try {
     const order = new Order({
-      customerId: req.user.id,
+      customerId: req.user._id,
       items: req.body.items,
     });
     await order.save();

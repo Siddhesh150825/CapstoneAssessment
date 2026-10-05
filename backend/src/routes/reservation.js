@@ -36,7 +36,7 @@ router.post("/", auth(["customer"]), async (req, res) => {
   }
 
     const reservation = new Reservation({
-      customerId: req.user.id,
+      customerId: req.user._id,
       date,
       time,
       guests

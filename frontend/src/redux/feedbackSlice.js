@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchFeedback = createAsyncThunk("feedback/fetchFeedback", async () => {
-  const res = await axios.get("http://localhost:5000/api/feedback");
+  const res = await axios.get("${process.env.REACT_APP_API_URL}/api/feedback");
   return res.data;
 });
 
@@ -10,7 +10,7 @@ export const submitFeedback = createAsyncThunk(
   "feedback/submitFeedback",
   async ({ token, rating, comment }) => {
     const res = await axios.post(
-      "http://localhost:5000/api/feedback",
+      "${process.env.REACT_APP_API_URL}/api/feedback",
       { rating, comment },
       { headers: { Authorization: token } }
     );

@@ -14,7 +14,7 @@ const Reservations = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const res = await api.get("/reservations/my-reservations");
+        const res = await api.get("/api/reservations/my-reservations");
         setReservations(res.data);
       } catch (err) {
         console.error("Error fetching reservations:", err);
@@ -35,7 +35,6 @@ const Reservations = () => {
     const today = new Date();
     const selectedDate = new Date(formData.date);
 
-    // ✅ Validation checks
     if (!formData.date || !formData.time || !formData.guests) {
       alert("Please fill all fields.");
       return;
@@ -51,7 +50,6 @@ const Reservations = () => {
       return;
     }
 
-    // ✅ Time validation
     const [hours, minutes] = formData.time.split(":").map(Number);
     if (hours < 10 || hours > 22) {
       alert("Reservations allowed only between 10:00 and 22:00.");
@@ -69,26 +67,26 @@ const Reservations = () => {
     }
 
     try {
-      const res = await api.post("/reservations", formData);
-      alert("✅ Reservation successful!");
+      const res = await api.post("/api/reservations", formData);
+      alert("Reservation successful!");
       setReservations([...reservations, res.data]);
-      setFormData({ date: "", time: "", guests: 1 }); // reset form
+      setFormData({ date: "", time: "", guests: 1 });
     } catch (err) {
-      alert("❌ Failed to reserve table");
+      alert("Failed to reserve table");
       console.error(err);
     }
   };
 
   return (
     <div className="reservations-container">
-      <h1>📅 Table Reservations</h1>
+      <h1>Table Reservations</h1>
 
-      {/* Reservation Form */}
+      {}
       <form onSubmit={handleSubmit} className="reservation-form">
         <input
           type="date"
           name="date"
-          min={new Date().toISOString().split("T")[0]} // disables past dates
+          min={new Date().toISOString().split("T")[0]}
           value={formData.date}
           onChange={handleChange}
           required
@@ -111,7 +109,7 @@ const Reservations = () => {
         <button type="submit">Reserve Table</button>
       </form>
 
-      {/* Reservation List */}
+      {}
       {loading ? (
         <p>Loading reservations...</p>
       ) : reservations.length === 0 ? (

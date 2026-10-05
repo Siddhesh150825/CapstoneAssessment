@@ -9,17 +9,17 @@ const Cart = ({ cartItems, setCartItems }) => {
 
   const checkout = async () => {
   try {
-    const res = await api.post("/orders", {
+    const res = await api.post("/api/orders", {
       items: cartItems.map((i) => ({
         menuItemId: i._id,
         quantity: i.qty
       })),
     });
-    alert("✅ Order placed successfully!");
+    alert("Order placed successfully!");
     setCartItems([]);
     navigate("/my-orders");
   } catch (err) {
-    alert("❌ Checkout failed");
+    alert("Checkout failed");
     console.error("Checkout error:", err.response?.data || err.message);
   }
 };
@@ -27,7 +27,7 @@ const Cart = ({ cartItems, setCartItems }) => {
 
   return (
     <div className="cart-container">
-      <h1>🛒 My Cart</h1>
+      <h1>My Cart</h1>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (

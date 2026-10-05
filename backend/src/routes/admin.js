@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const MenuItem = require("../models/MenuItem");
+const User = require("../models/User");
+const Order = require("../models/Order");
+const Reservation = require("../models/Reservation");
+const Feedback = require("../models/Feedback");
+
 const auth = require("../middleware/auth");
 
 router.post("/menu", auth(["admin"]), async (req, res) => {
@@ -90,6 +95,69 @@ router.delete("/users/:id", auth(["admin"]), async (req, res) => {
     res.json({ message: "User deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: "Error deleting user" });
+  }
+});
+
+
+router.get("/orders", auth(["admin"]), async (req, res) => {
+  try {
+    const orders = await Order.find().populate("items.menuItemId", "name price").populate("customerId", "name email");
+    res.json(orders);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+router.get("/reservations", auth(["admin"]), async (req, res) => {
+  try {
+    const reservations = await Reservation.find().populate("customerId", "name email").sort({ createdAt: -1 });
+    res.json(reservations);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+router.get("/feedback", auth(["admin"]), async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find().populate("customerId", "name email").sort({ createdAt: -1 });
+    res.json(feedbacks);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+router.put("/orders/:id/status", auth(["admin"]), async (req, res) => {
+  try {
+    const { status } = req.body;
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+    if (!order) return res.status(404).json({ message: "Order not found" });
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ message: "Error updating order status" });
+  }
+});
+
+router.delete("/reservations/:id", auth(["admin"]), async (req, res) => {
+  try {
+    const reservation = await Reservation.findByIdAndDelete(req.params.id);
+    if (!reservation) return res.status(404).json({ message: "Reservation not found" });
+    res.json({ message: "Reservation deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting reservation" });
+  }
+});
+
+router.delete("/feedback/:id", auth(["admin"]), async (req, res) => {
+  try {
+    const feedback = await Feedback.findByIdAndDelete(req.params.id);
+    if (!feedback) return res.status(404).json({ message: "Feedback not found" });
+    res.json({ message: "Feedback deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting feedback" });
   }
 });
 

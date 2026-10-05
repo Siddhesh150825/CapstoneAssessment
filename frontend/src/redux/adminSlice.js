@@ -2,28 +2,28 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchUsers = createAsyncThunk("admin/fetchUsers", async (token) => {
-  const res = await axios.get("http://localhost:5000/api/admin/users", {
+  const res = await axios.get("${process.env.REACT_APP_API_URL}/api/admin/users", {
     headers: { Authorization: token }
   });
   return res.data;
 });
 
 export const fetchAllOrders = createAsyncThunk("admin/fetchAllOrders", async (token) => {
-  const res = await axios.get("http://localhost:5000/api/admin/orders", {
+  const res = await axios.get("${process.env.REACT_APP_API_URL}/api/admin/orders", {
     headers: { Authorization: token }
   });
   return res.data;
 });
 
 export const fetchAllReservations = createAsyncThunk("admin/fetchAllReservations", async (token) => {
-  const res = await axios.get("http://localhost:5000/api/admin/reservations", {
+  const res = await axios.get("${process.env.REACT_APP_API_URL}/api/admin/reservations", {
     headers: { Authorization: token }
   });
   return res.data;
 });
 
 export const fetchAllFeedback = createAsyncThunk("admin/fetchAllFeedback", async (token) => {
-  const res = await axios.get("http://localhost:5000/api/admin/feedback", {
+  const res = await axios.get("${process.env.REACT_APP_API_URL}/api/admin/feedback", {
     headers: { Authorization: token }
   });
   return res.data;

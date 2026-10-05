@@ -13,7 +13,7 @@ const Orders = () => {
 
   return (
     <div className="orders-container">
-      <h1>🛒 My Orders</h1>
+      <h1>My Orders</h1>
 
       {status === "loading" && <p>Loading orders...</p>}
       {status === "failed" && <p>Error: {error}</p>}

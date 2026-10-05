@@ -15,7 +15,7 @@ function auth(roles = []) {
         return res.status(403).json({ message: "Forbidden" });
       }
 
-      req.user = decoded;
+      req.user = { _id: decoded.id, role: decoded.role };
       next();
     } catch (err) {
       return res.status(401).json({ message: "Invalid token" });

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import "./Register.css"; // ✅ Import CSS
+import "./Register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'customer' });
@@ -15,7 +15,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post(`${API_BASE_URL}/api/auth/register`, formData);
-      navigate('/login'); // ✅ safer redirect after register
+      navigate('/login');
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed');
     }
@@ -35,7 +35,7 @@ const Register = () => {
         <label>Password</label>
         <input type="password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} required />
 
-        {/* Hidden role field */}
+        {}
         <input type="hidden" value={formData.role} />
 
         <button type="submit">Register</button>

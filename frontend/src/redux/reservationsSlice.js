@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchReservations = createAsyncThunk("reservations/fetchReservations", async (token) => {
-  const res = await axios.get("http://localhost:5000/api/reservations/my-reservations", {
+  const res = await axios.get("${process.env.REACT_APP_API_URL}/api/reservations/my-reservations", {
     headers: { Authorization: token }
   });
   return res.data;
@@ -12,7 +12,7 @@ export const createReservation = createAsyncThunk(
   "reservations/createReservation",
   async ({ token, date, time, guests }) => {
     const res = await axios.post(
-      "http://localhost:5000/api/reservations",
+      "${process.env.REACT_APP_API_URL}/api/reservations",
       { date, time, guests },
       { headers: { Authorization: token } }
     );

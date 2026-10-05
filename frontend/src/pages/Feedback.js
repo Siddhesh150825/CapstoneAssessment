@@ -13,7 +13,7 @@ const Feedback = () => {
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
-        const res = await api.get("/feedback");
+        const res = await api.get("/api/feedback");
         setFeedbackList(res.data);
       } catch (err) {
         console.error("Error fetching feedback:", err);
@@ -31,7 +31,7 @@ const Feedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/feedback", formData);
+      const res = await api.post("/api/feedback", formData);
       alert("✅ Feedback submitted!");
       setFeedbackList([...feedbackList, res.data]);
       setFormData({ rating: 5, comment: "" });
@@ -92,10 +92,10 @@ const Feedback = () => {
                     const newComment = prompt("Edit your feedback:", fb.comment);
                     if (!newComment) return;
                     try {
-                      const res = await api.put(`/feedback/${fb._id}`, {
+                      const res = await api.put(`/api/feedback/${fb._id}`, {
                         comment: newComment,
                       });
-                      alert("✅ Feedback updated!");
+                      alert("Feedback updated!");
                       setFeedbackList((prev) =>
                         prev.map((f) =>
                           f._id === fb._id
@@ -104,7 +104,7 @@ const Feedback = () => {
                         )
                       );
                     } catch (err) {
-                      alert("❌ Failed to update feedback");
+                      alert("Failed to update feedback");
                       console.error(err);
                     }
                   }}
@@ -122,13 +122,13 @@ const Feedback = () => {
                     )
                       return;
                     try {
-                      await api.delete(`/feedback/${fb._id}`);
-                      alert("🗑️ Feedback deleted!");
+                      await api.delete(`/api/feedback/${fb._id}`);
+                      alert("Feedback deleted!");
                       setFeedbackList((prev) =>
                         prev.filter((f) => f._id !== fb._id)
                       );
                     } catch (err) {
-                      alert("❌ Failed to delete feedback");
+                      alert("Failed to delete feedback");
                       console.error(err);
                     }
                   }}
