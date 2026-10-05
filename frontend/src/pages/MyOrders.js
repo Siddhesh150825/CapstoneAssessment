@@ -5,7 +5,6 @@ import { fetchOrders, fetchOrderHistory } from "../redux/ordersSlice";
 const MyOrders = () => {
   const dispatch = useDispatch();
 
-  // ✅ Get token and user from auth slice
   const { token, user } = useSelector((state) => state.auth);
 
   const { list, status, error, history } = useSelector((state) => state.orders);

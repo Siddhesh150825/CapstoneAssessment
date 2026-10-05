@@ -76,7 +76,6 @@
   color: #222;
 }
 
-/* Form styling */
 .menu-form {
   display: flex;
   gap: 10px;
@@ -107,13 +106,12 @@
   background: linear-gradient(135deg, #0056b3, #003f7f);
 }
 
-/* Menu list styling */
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* two items per row */
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
 }
 
@@ -132,7 +130,6 @@ li:hover {
   transform: translateY(-3px);
 }
 
-/* Buttons inside list */
 li button {
   margin-left: 8px;
   padding: 6px 10px;

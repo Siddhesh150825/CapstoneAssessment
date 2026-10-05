@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom"; // ✅ useNavigate
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
@@ -21,16 +21,15 @@ const Login = () => {
       localStorage.setItem("token", token);
 
       const decoded = jwtDecode(token);
-      setMessage("✅ Login successful!");
+      setMessage("Login successful!");
 
-      // ✅ Redirect based on role
       if (decoded.role === "admin") {
         navigate("/admin");
       } else {
         navigate("/menu");
       }
     } catch (err) {
-      setMessage("❌ Login failed: " + err.response?.data?.message);
+      setMessage("Login failed: " + err.response?.data?.message);
     }
   };
 

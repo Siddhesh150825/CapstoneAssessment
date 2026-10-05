@@ -46,7 +46,7 @@ function Menu() {
         ))}
       </ul>
 
-      {/* Navigation buttons */}
+      {}
       <div style={{ marginTop: "20px" }}>
         <Link to="/reservations">
           <button style={{ padding: "10px 20px", marginRight: "10px" }}>

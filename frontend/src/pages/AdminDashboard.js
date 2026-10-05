@@ -24,15 +24,12 @@ const AdminDashboard = () => {
           setMenu(Array.isArray(res.data) ? res.data : []);
         } else if (activeTab === "orders") {
           const res = await api.get("/api/admin/orders");
-          console.log("Fetched orders:", res.data);
           setOrders(Array.isArray(res.data) ? res.data : []);
         } else if (activeTab === "reservations") {
           const res = await api.get("/api/admin/reservations");
-          console.log("Fetched reservations:", res.data);
           setReservations(Array.isArray(res.data) ? res.data : []);
         } else if (activeTab === "feedback") {
           const res = await api.get("/api/admin/feedback");
-          console.log("Fetched feedback:", res.data);
           setFeedback(Array.isArray(res.data) ? res.data : []);
         }
       } catch (err) {

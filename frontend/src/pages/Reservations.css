@@ -1,7 +1,7 @@
 .reservations-container {
   padding: 30px;
   font-family: "Poppins", sans-serif;
-  background: #f9f4ef; /* soft beige background */
+  background: #f9f4ef;
   min-height: 100vh;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .reservation-form button {
-  background: #e67e22; /* orange brand color */
+  background: #e67e22;
   color: white;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;

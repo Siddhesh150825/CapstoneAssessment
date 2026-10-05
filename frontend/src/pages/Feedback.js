@@ -45,7 +45,7 @@ const Feedback = () => {
     <div className="feedback-container">
       <h1>⭐ Customer Feedback</h1>
 
-      {/* Feedback Form */}
+      {}
       <form onSubmit={handleSubmit} className="feedback-form">
         <label>
           Rating:
@@ -67,7 +67,7 @@ const Feedback = () => {
         <button type="submit">Submit Feedback</button>
       </form>
 
-      {/* Feedback List */}
+      {}
       {loading ? (
         <p>Loading feedback...</p>
       ) : feedbackList.length === 0 ? (
@@ -84,7 +84,7 @@ const Feedback = () => {
                 <small>By: {fb.user?.name || "Anonymous"}</small>
               </p>
 
-              {/* ✅ Edit/Delete actions */}
+              {}
               <div className="feedback-actions">
                 <button
                   className="edit-btn"

@@ -16,14 +16,14 @@
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ✅ exactly 4 items per row */
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   justify-items: center;
 }
 
 .menu-card {
   width: 100%;
-  max-width: 260px; /* ✅ keeps cards uniform */
+  max-width: 260px;
   border-radius: 12px;
   padding: 20px;
   background: #ffffff;
