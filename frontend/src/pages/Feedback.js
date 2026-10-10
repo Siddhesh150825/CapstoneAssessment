@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import api from "../utils/axios";
+import { useNavigate } from "react-router-dom";
 import "./Feedback.css";
 
 const Feedback = () => {
+  const navigate = useNavigate();
   const [feedbackList, setFeedbackList] = useState([]);
   const [formData, setFormData] = useState({
     rating: 5,
@@ -32,17 +34,27 @@ const Feedback = () => {
     e.preventDefault();
     try {
       const res = await api.post("/api/feedback", formData);
-      alert("✅ Feedback submitted!");
+      alert("Feedback submitted!");
       setFeedbackList([...feedbackList, res.data]);
       setFormData({ rating: 5, comment: "" });
     } catch (err) {
-      alert("❌ Failed to submit feedback");
+      alert("Failed to submit feedback");
       console.error(err);
     }
   };
 
   return (
     <div className="feedback-container">
+
+      <div className="feedback-nav">
+        <button onClick={() => navigate("/reservations")} className="nav-btn">
+          Go to Feedback
+        </button>
+        <button onClick={() => navigate("/menu")} className="nav-btn">
+          Back to Menu
+        </button>
+      </div>
+
       <h1>⭐ Customer Feedback</h1>
 
       {}
@@ -81,7 +93,7 @@ const Feedback = () => {
               </p>
               <p>{fb.comment}</p>
               <p>
-                <small>By: {fb.user?.name || "Anonymous"}</small>
+                <small>By: {fb.customerId?.name || "Anonymous"}</small>
               </p>
 
               {}

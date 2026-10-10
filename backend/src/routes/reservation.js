@@ -43,7 +43,8 @@ router.post("/", auth(["customer"]), async (req, res) => {
     });
 
     await reservation.save();
-    res.json(reservation);
+    const populatedReservation = await reservation.populate("customerId", "name email");
+    res.json(populatedReservation);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -51,7 +52,7 @@ router.post("/", auth(["customer"]), async (req, res) => {
 
 router.get("/my-reservations", auth(["customer"]), async (req, res) => {
   try {
-    const reservations = await Reservation.find({ customerId: req.user.id });
+    const reservations = await Reservation.find({ customerId: req.user.id }).populate("customerId", "name email");
     res.json(reservations);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -70,16 +71,29 @@ router.get("/", auth(["admin"]), async (req, res) => {
 router.put("/:id", auth(["admin"]), async (req, res) => {
   try {
     const reservation = await Reservation.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(reservation);
+    const populatedReservation = await reservation.populate("customerId", "name email");
+    res.json(populatedReservation);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
-router.delete("/:id", auth(["admin"]), async (req, res) => {
+router.put("/:id/status", auth(["admin"]), async (req, res) => {
   try {
-    await Reservation.findByIdAndDelete(req.params.id);
-    res.json({ message: "Reservation deleted" });
+    const { status } = req.body;
+    if (!["accepted", "rejected"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    const reservation = await Reservation.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    ).populate("customerId", "name email");
+
+    if (!reservation) return res.status(404).json({ message: "Reservation not found" });
+
+    res.json(reservation);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

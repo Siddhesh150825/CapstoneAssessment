@@ -1,57 +1,51 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchOrders, fetchOrderHistory } from "../redux/ordersSlice";
+import React, { useEffect, useState } from "react";
+import api from "../utils/axios";
 
 const MyOrders = () => {
-  const dispatch = useDispatch();
-
-  const { token, user } = useSelector((state) => state.auth);
-
-  const { list, status, error, history } = useSelector((state) => state.orders);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    if (token && user?._id) {
-      dispatch(fetchOrders(token));
-      dispatch(fetchOrderHistory({ token, userId: user._id }));
-    }
-  }, [dispatch, token, user]);
+    const fetchOrders = async () => {
+      try {
+        const res = await api.get("/api/orders/my-orders");
+        setOrders(res.data);
+      } catch (err) {
+        console.error("Error fetching orders:", err);
+      }
+    };
+    fetchOrders();
+  }, []);
 
-  if (status === "loading") return <p>Loading orders...</p>;
-  if (status === "failed") return <p>Error: {error}</p>;
+  const delivered = orders.filter(o => o.status === "Delivered");
+  const active = orders.filter(o => o.status !== "Delivered");
 
   return (
     <div className="orders-container">
-      <h2>📦 My Orders</h2>
-      {list.length === 0 ? (
+      <h1>📦 My Orders</h1>
+      {active.length === 0 ? (
         <p>No orders yet.</p>
       ) : (
-        <ul className="orders-list">
-          {list.map((order) => (
-            <li key={order._id} className="order-card">
-              <p><strong>Order ID:</strong> {order._id}</p>
-              <p><strong>Status:</strong> {order.status}</p>
-              <p><strong>Items:</strong></p>
-              <ul>
-                {order.items.map((item, idx) => (
-                  <li key={idx}>
-                    {item.name} × {item.quantity} – ₹{item.price}
-                  </li>
-                ))}
-              </ul>
-              <p><strong>Placed on:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+        <ul>
+          {active.map(o => (
+            <li key={o._id}>
+              Order #{o._id} – {o.status}
             </li>
           ))}
         </ul>
       )}
 
-      <h3>Delivered Orders</h3>
-      <ul>
-        {history.map((order) => (
-          <li key={order._id}>
-            Order #{order._id} – Delivered
-          </li>
-        ))}
-      </ul>
+      <h2>Delivered Orders</h2>
+      {delivered.length === 0 ? (
+        <p>No delivered orders yet.</p>
+      ) : (
+        <ul>
+          {delivered.map(o => (
+            <li key={o._id}>
+              Order #{o._id} – Delivered
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

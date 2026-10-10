@@ -19,7 +19,8 @@ router.post("/", auth(["customer"]), async (req, res) => {
     });
 
     await feedback.save();
-    res.json(feedback);
+    const populatedFeedback = await feedback.populate("customerId", "name email");
+    res.json(populatedFeedback);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -27,7 +28,7 @@ router.post("/", auth(["customer"]), async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const feedbacks = await Feedback.find().populate("customerId", "name");
+    const feedbacks = await Feedback.find().populate("customerId", "name email");
     res.json(feedbacks);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -36,7 +37,7 @@ router.get("/", async (req, res) => {
 
 router.get("/my-feedback", auth(["customer"]), async (req, res) => {
   try {
-    const feedbacks = await Feedback.find({ customerId: req.user.id });
+    const feedbacks = await Feedback.find({ customerId: req.user.id }).populate("customerId", "name email");
     res.json(feedbacks);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -58,8 +59,8 @@ router.put("/:id", auth(["customer", "admin"]), async (req, res) => {
     feedback.comment = req.body.comment || feedback.comment;
     feedback.rating = req.body.rating || feedback.rating;
     await feedback.save();
-
-    res.json(feedback);
+    const populatedFeedback = await feedback.populate("customerId", "name email");
+    res.json(populatedFeedback);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

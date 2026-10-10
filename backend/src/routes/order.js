@@ -16,9 +16,9 @@ router.post("/", auth(["customer"]), async (req, res) => {
   }
 });
 
-router.get("/my-orders", auth(["customer"]), async (req, res) => {
+router.get("/my-orders", auth(["customer", "admin"]), async (req, res) => {
   try {
-    const orders = await Order.find({ customerId: req.user.id }).sort({ createdAt: -1 });
+    const orders = await Order.find({ customerId: req.user._id }).populate("items.menuItemId", "name price").sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
     console.error("Error fetching orders:", err);

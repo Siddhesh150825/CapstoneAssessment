@@ -254,26 +254,64 @@ const AdminDashboard = () => {
       )}
 
       {activeTab === "reservations" && (
-        <div>
-          <h2>Manage Reservations</h2>
-          <ul>
-            {Array.isArray(reservations) && reservations.map((r) => (
-              <li key={r._id}>
-                {r.date} {r.time} – {r.guests} guests
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  <div>
+    <h2>Manage Reservations</h2>
+    <ul className="reservation-list">
+      {Array.isArray(reservations) && reservations.map((r) => (
+        <li key={r._id} className="reservation-card">
+          <p><strong>Customer:</strong> {r.customerId?.name || "Unknown"}</p>
+          <p><strong>Date:</strong> {new Date(r.date).toLocaleDateString()}</p>
+          <p><strong>Time:</strong> {r.time}</p>
+          <p><strong>Guests:</strong> {r.guests}</p>
+          <p><strong>Status:</strong> {r.status}</p>
+          <div className="reservations-actions">
+    <button
+      className="accept-btn"
+      onClick={async () => {
+        try {
+          const res = await api.put(`/api/reservations/${r._id}/status`, { status: "accepted" });
+          setReservations((prev) => prev.map((item) => item._id === r._id ? res.data : item));
+        } catch (err) {
+          console.error(err);
+        }
+      }}
+    >
+      Accept
+    </button>
+
+    <button
+      className="reject-btn"
+      onClick={async () => {
+        try {
+          const res = await api.put(`/api/reservations/${r._id}/status`, { status: "rejected" });
+          setReservations((prev) => prev.map((item) => item._id === r._id ? res.data : item));
+        } catch (err) {
+          console.error(err);
+        }
+      }}
+    >
+      Reject
+    </button>
+  </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
 
       {activeTab === "feedback" && (
         <div>
           <h2>Manage Feedback</h2>
-          <pre>{JSON.stringify(feedback, null, 2)}</pre>
           <ul className="feedback-list">
             {Array.isArray(feedback) && feedback.map((f) => (
               <li key={f._id} className="feedback-item">
-                <p><strong>{f.rating}⭐</strong> – {f.comment}</p>
+                <div className="feedback-content">
+                  <p><strong>{f.rating}⭐</strong> – {f.comment}</p>
+                  <p><strong>Name:</strong> {f.customerId?.name || "Anonymous"}</p>
+                  <p><strong>Email:</strong> {f.customerId?.email || "N/A"}</p>
+                  <p><strong>Created At:</strong> {new Date(f.createdAt).toLocaleString()}</p>
+                </div>
                 <div className="feedback-actions">
                   <button
                     className="edit-btn"

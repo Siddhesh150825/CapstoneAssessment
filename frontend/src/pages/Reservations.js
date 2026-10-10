@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import api from "../utils/axios";
+import { useNavigate } from "react-router-dom";
 import "./Reservations.css";
 
 const Reservations = () => {
+  const navigate = useNavigate();
   const [reservations, setReservations] = useState([]);
   const [formData, setFormData] = useState({
     date: "",
@@ -78,7 +80,18 @@ const Reservations = () => {
   };
 
   return (
+    
     <div className="reservations-container">
+
+      <div className="reservation-nav">
+        <button onClick={() => navigate("/feedback")} className="nav-btn">
+          Go to Feedback
+        </button>
+        <button onClick={() => navigate("/menu")} className="nav-btn">
+          Back to Menu
+        </button>
+      </div>
+
       <h1>Table Reservations</h1>
 
       {}
@@ -118,11 +131,11 @@ const Reservations = () => {
         <div className="reservations-list">
           {reservations.map((resv) => (
             <div key={resv._id} className="reservation-card">
-              <h3>Reservation #{resv._id}</h3>
-              <p>Date: {resv.date}</p>
-              <p>Time: {resv.time}</p>
+              <h3>Customer: {resv.customerId?.name || "Unknown"}</h3>
+              <p>Date: {new Date(resv.date).toLocaleDateString()}</p>
+              <p>Time: {new Date(`1970-01-01T${resv.time}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               <p>Guests: {resv.guests}</p>
-              <p>Status: <strong>{resv.status}</strong></p>
+              {resv.status && <p>Status: <strong>{resv.status}</strong></p>}
             </div>
           ))}
         </div>

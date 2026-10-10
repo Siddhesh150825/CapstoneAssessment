@@ -48,5 +48,5 @@ It helps restaurants manage menus, orders, reservations, and feedback while givi
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/<your-username>/smart-restaurant-management.git
+git clone https://github.com/Siddhesh150825/smart-restaurant-management.git
 cd smart-restaurant-management
