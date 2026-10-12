@@ -2,6 +2,7 @@
   padding: 30px;
   font-family: "Poppins", sans-serif;
   max-width: 1200px;
+  background: transparent;
   margin: auto;
 }
 
@@ -58,4 +59,9 @@
 
 .menu-btn:hover {
   background: linear-gradient(135deg, #0056b3, #003f7f);
+}
+
+.menu-card h3 {
+  color: #000;
+  font-weight: 600;
 }

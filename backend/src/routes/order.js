@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", auth(["customer"]), async (req, res) => {
   try {
     const order = new Order({
-      customerId: req.user._id,
+      customerId: req.user.id,
       items: req.body.items,
     });
     await order.save();
@@ -18,11 +18,11 @@ router.post("/", auth(["customer"]), async (req, res) => {
 
 router.get("/my-orders", auth(["customer", "admin"]), async (req, res) => {
   try {
-    const orders = await Order.find({ customerId: req.user._id }).populate({
-  path: "items.menuItemId",
-  model: "MenuItem",
-  select: "name price"
-}).sort({ createdAt: -1 });
+    const orders = await Order.find({ customerId: req.user.id }).populate({
+      path: "items.menuItemId",
+      model: "MenuItem",
+      select: "name price"
+    }).sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
     console.error("Error fetching orders:", err);
@@ -47,16 +47,16 @@ router.put("/:id/status", auth(["admin"]), async (req, res) => {
       update.deliveredAt = new Date();
     }
     const order = await Order.findByIdAndUpdate(req.params.id, update, { new: true })
-                  .populate({
-                  path: "items.menuItemId",
-                  model: "MenuItem",
-                  select: "name price"
-                  })
-                  .populate({
-                  path: "customerId",
-                  model: "User",
-                  select: "name email"
-                });
+      .populate({
+        path: "items.menuItemId",
+        model: "MenuItem",
+        select: "name price"
+      })
+      .populate({
+        path: "customerId",
+        model: "User",
+        select: "name email"
+      });
     res.json(order);
   } catch (err) {
     res.status(400).json({ error: err.message });

@@ -1,7 +1,7 @@
 .feedback-container {
   padding: 30px;
   font-family: "Poppins", sans-serif;
-  background: #f9f4ef;
+  background: transparent;
   min-height: 100vh;
 }
 
@@ -106,3 +106,23 @@
   color: white;
 }
 
+.feedback-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.nav-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav-btn:hover {
+  background: #0056b3;
+}

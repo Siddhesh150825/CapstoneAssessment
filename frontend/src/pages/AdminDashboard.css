@@ -1,6 +1,7 @@
 .admin-container {
   padding: 30px;
   font-family: "Poppins", sans-serif;
+  background: transparent;
 }
 
 .admin-tabs {
@@ -224,6 +225,12 @@ ul {
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
+.order-card p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #333;
+}
+
 .order-card select {
   margin-top: 10px;
   padding: 8px 12px;
@@ -236,12 +243,6 @@ ul {
 
 .order-card p,
 .reservation-card p {
-  margin: 6px 0;
-  font-size: 15px;
-  color: #333;
-}
-
-.order-card p {
   margin: 6px 0;
   font-size: 15px;
   color: #333;

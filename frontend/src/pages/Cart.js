@@ -8,21 +8,21 @@ const Cart = ({ cartItems, setCartItems }) => {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
 
   const checkout = async () => {
-  try {
-    const res = await api.post("/api/orders", {
-      items: cartItems.map((i) => ({
-        menuItemId: i._id,
-        quantity: i.qty
-      })),
-    });
-    alert("Order placed successfully!");
-    setCartItems([]);
-    navigate("/my-orders");
-  } catch (err) {
-    alert("Checkout failed");
-    console.error("Checkout error:", err.response?.data || err.message);
-  }
-};
+    try {
+      const res = await api.post("/api/orders", {
+        items: cartItems.map((i) => ({
+          menuItemId: i._id,
+          quantity: i.qty
+        })),
+      });
+      alert("Order placed successfully!");
+      setCartItems([]);
+      navigate("/my-orders");
+    } catch (err) {
+      alert("Checkout failed");
+      console.error("Checkout error:", err.response?.data || err.message);
+    }
+  };
 
 
   return (

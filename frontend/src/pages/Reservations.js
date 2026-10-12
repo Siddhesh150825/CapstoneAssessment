@@ -80,7 +80,6 @@ const Reservations = () => {
   };
 
   return (
-    
     <div className="reservations-container">
 
       <div className="reservation-nav">
@@ -93,12 +92,9 @@ const Reservations = () => {
         <button onClick={() => navigate("/my-orders")} className="nav-btn">
           Go to My Orders
         </button>
-
       </div>
 
-      <h1>Table Reservations</h1>
-
-      {}
+      { }
       <form onSubmit={handleSubmit} className="reservation-form">
         <input
           type="date"
@@ -126,7 +122,7 @@ const Reservations = () => {
         <button type="submit">Reserve Table</button>
       </form>
 
-      {}
+      { }
       {loading ? (
         <p>Loading reservations...</p>
       ) : reservations.length === 0 ? (
@@ -135,7 +131,6 @@ const Reservations = () => {
         <div className="reservations-list">
           {reservations.map((resv) => (
             <div key={resv._id} className="reservation-card">
-              <h3>Customer: {resv.customerId?.name || "Unknown"}</h3>
               <p>Date: {new Date(resv.date).toLocaleDateString()}</p>
               <p>Time: {new Date(`1970-01-01T${resv.time}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               <p>Guests: {resv.guests}</p>

@@ -25,28 +25,27 @@ const MyOrders = () => {
   return (
     <div className="orders-container">
       <div style={{ textAlign: "center", marginTop: "30px" }}>
-            <button
-              className="nav-btn"
-              onClick={() => navigate("/reservations")}
-            >
-              Reserve a Table
-            </button>
-            <button
-              className="nav-btn"
-              style={{ marginLeft: "10px" }}
-              onClick={() => navigate("/feedback")}
-            >
-              Give Feedback
-            </button>
-            <button 
-                className="nav-btn"
-                style={{ marginLeft: "10px" }}
-                onClick={() => navigate("/menu")}
-            >
-                Back to Menu
-            </button>
-          </div>
-      
+        <button
+          className="nav-btn"
+          onClick={() => navigate("/reservations")}
+        >
+          Reserve a Table
+        </button>
+        <button
+          className="nav-btn"
+          style={{ marginLeft: "10px" }}
+          onClick={() => navigate("/feedback")}
+        >
+          Give Feedback
+        </button>
+        <button
+          className="nav-btn"
+          style={{ marginLeft: "10px" }}
+          onClick={() => navigate("/menu")}
+        >
+          Back to Menu
+        </button>
+      </div>
       <h1>My Orders</h1>
 
       <h2>Active Orders</h2>
@@ -72,7 +71,6 @@ const MyOrders = () => {
         <ul className="order-list">
           {delivered.map(o => (
             <li key={o._id} className="order-card">
-              <h3>Order #{o._id.slice(-6)}</h3>
               <p><strong>Date:</strong> {new Date(o.createdAt).toLocaleDateString()}</p>
               <p><strong>Items:</strong> {o.items.map(i => `${i.menuItemId?.name} × ${i.quantity}`).join(", ")}</p>
               <p><strong>Total:</strong> ₹{o.items.reduce((sum, i) => sum + (i.menuItemId?.price || 0) * i.quantity, 0)}</p>

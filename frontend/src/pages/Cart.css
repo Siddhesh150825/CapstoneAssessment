@@ -1,25 +1,7 @@
 .cart-container {
-  max-width: 600px;
-  margin: 60px auto;
   padding: 30px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   font-family: "Poppins", sans-serif;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cart-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.cart-container h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #111;
+  background: transparent;
 }
 
 .cart-container ul {
@@ -29,45 +11,20 @@
 }
 
 .cart-container li {
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin: 10px 0;
-  font-size: 16px;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: background 0.3s ease;
-}
-
-.cart-container li:hover {
-  background: #e9ecef;
-}
-
-.cart-container h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 20px;
-  color: #000;
+  margin: 8px 0;
 }
 
 .cart-container button {
   background: linear-gradient(135deg, #007bff, #0056b3);
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 10px 14px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 15px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease;
 }
 
 .cart-container button:hover {
   background: linear-gradient(135deg, #0056b3, #003f7f);
-  transform: translateY(-2px);
-}
-
-.cart-container p {
-  font-size: 15px;
-  color: #555;
 }

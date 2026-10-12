@@ -9,6 +9,7 @@ import Feedback from "./pages/Feedback";
 import Cart from "./pages/Cart";
 import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
+import './App.css';
 
 const PrivateRoute = ({ children, role }) => {
   const token = localStorage.getItem("token");
@@ -33,37 +34,44 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/my-orders" element={<MyOrders />} />
-        <Route path="/reservations" element={<Reservations />} />
-        <Route path="/feedback" element={<Feedback />} />
+    <>
+      <div className="banner"> Siddhesh Cloud Kitchen </div>
+      <div className="App">
+        <Router>
+          <div className="page-wrapper">
+            <Routes>
+              <Route path="/" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/my-orders" element={<MyOrders />} />
+              <Route path="/reservations" element={<Reservations />} />
+              <Route path="/feedback" element={<Feedback />} />
 
-        {}
-        <Route
-          path="/menu"
-          element={<Menu cartItems={cartItems} setCartItems={setCartItems} />}
-        />
+              { }
+              <Route
+                path="/menu"
+                element={<Menu cartItems={cartItems} setCartItems={setCartItems} />}
+              />
 
-        {}
-        <Route
-          path="/cart"
-          element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
-        />
+              { }
+              <Route
+                path="/cart"
+                element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
+              />
 
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute role="admin">
-              <AdminDashboard />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-    </Router>
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRoute role="admin">
+                    <AdminDashboard />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </div>
+        </Router>
+      </div>
+    </>
   );
 }
 

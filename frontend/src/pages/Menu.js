@@ -37,14 +37,28 @@ const Menu = ({ cartItems, setCartItems }) => {
   };
 
   const filteredItems = Array.isArray(menuItems)
-  ? menuItems.filter((item) =>
+    ? menuItems.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase())
     )
-  : [];
+    : [];
 
   return (
     <div className="menu-container">
-      <h1>🍽️ Restaurant Menu</h1>
+      { }
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <button className="menu-btn" onClick={() => navigate("/reservations")} >
+          Reserve a Table
+        </button>
+        <button className="menu-btn" style={{ marginLeft: "10px" }}
+          onClick={() => navigate("/feedback")} >
+          Give Feedback
+        </button>
+        <button className="menu-btn" style={{ marginLeft: "10px" }}
+          onClick={() => navigate("/my-orders")} >
+          My Orders
+        </button>
+      </div>
+      <h1>Restaurant Menu</h1>
 
       <input
         type="text"
@@ -80,7 +94,7 @@ const Menu = ({ cartItems, setCartItems }) => {
             ))}
           </div>
 
-          {}
+          { }
           {cartItems.length > 0 && (
             <div style={{ textAlign: "center", marginTop: "30px" }}>
               <button
@@ -91,30 +105,6 @@ const Menu = ({ cartItems, setCartItems }) => {
               </button>
             </div>
           )}
-
-          {}
-          <div style={{ textAlign: "center", marginTop: "30px" }}>
-            <button
-              className="menu-btn"
-              onClick={() => navigate("/reservations")}
-            >
-              Reserve a Table
-            </button>
-            <button
-              className="menu-btn"
-              style={{ marginLeft: "10px" }}
-              onClick={() => navigate("/feedback")}
-            >
-              Give Feedback
-            </button>
-            <button
-              className="menu-btn"
-              style={{ marginLeft: "10px" }}
-              onClick={() => navigate("/my-orders")}
-            >
-              My Orders
-            </button>
-          </div>
         </>
       )}
     </div>

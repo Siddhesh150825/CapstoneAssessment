@@ -48,7 +48,7 @@ const Feedback = () => {
 
       <div className="feedback-nav">
         <button onClick={() => navigate("/reservations")} className="nav-btn">
-          Go to Feedback
+          Go to Reservation
         </button>
         <button onClick={() => navigate("/menu")} className="nav-btn">
           Back to Menu
@@ -60,10 +60,9 @@ const Feedback = () => {
 
       <h1>⭐ Customer Feedback</h1>
 
-      {}
+      { }
       <form onSubmit={handleSubmit} className="feedback-form">
         <label>
-          Rating:
           <select name="rating" value={formData.rating} onChange={handleChange}>
             {[1, 2, 3, 4, 5].map((num) => (
               <option key={num} value={num}>
@@ -71,6 +70,7 @@ const Feedback = () => {
               </option>
             ))}
           </select>
+          Rating
         </label>
         <textarea
           name="comment"
@@ -82,7 +82,7 @@ const Feedback = () => {
         <button type="submit">Submit Feedback</button>
       </form>
 
-      {}
+      { }
       {loading ? (
         <p>Loading feedback...</p>
       ) : feedbackList.length === 0 ? (
@@ -99,7 +99,7 @@ const Feedback = () => {
                 <small>By: {fb.customerId?.name || "Anonymous"}</small>
               </p>
 
-              {}
+              { }
               <div className="feedback-actions">
                 <button
                   className="edit-btn"

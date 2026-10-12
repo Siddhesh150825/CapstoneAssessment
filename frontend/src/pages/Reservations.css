@@ -1,12 +1,12 @@
 .reservations-container {
   padding: 30px;
   font-family: "Poppins", sans-serif;
-  background: #f9f4ef;
+  background: transparent;
   min-height: 100vh;
 }
 
 .reservations-container h1 {
-  color: #2c3e50;
+  color: #fff;
   margin-bottom: 20px;
   font-weight: 600;
 }
@@ -60,13 +60,13 @@
 }
 
 .reservation-card h3 {
-  color: #2c3e50;
+  color: #000;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
 .reservation-card p {
-  color: #555;
+  color: #333;
   margin: 4px 0;
 }
 

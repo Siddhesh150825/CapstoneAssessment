@@ -13,7 +13,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const nameRegex = /^[A-Za-z\s]{3,}$/;
     if (!nameRegex.test(formData.name)) {
       setError("Name must contain only letters and be at least 3 characters long.");
@@ -46,15 +45,15 @@ const Register = () => {
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>Full Name</label>
-        <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+        <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
 
         <label>Email Address</label>
-        <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
+        <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
 
         <label>Password</label>
-        <input type="password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} required />
+        <input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} required />
 
-        {}
+        { }
         <input type="hidden" value={formData.role} />
 
         <button type="submit">Register</button>

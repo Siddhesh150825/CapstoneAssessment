@@ -138,7 +138,7 @@ const AdminDashboard = () => {
             />
             <button
               onClick={async () => {
-                const nameRegex = /^[A-Za-z0-9\s]+$/; // only alphabets, numbers, spaces
+              const nameRegex = /^[A-Za-z0-9\s]+$/; // only alphabets, numbers, spaces
                 if (!newName.trim() || !nameRegex.test(newName)) {
                   alert("Item name must contain only letters and numbers (min 1 character).");
                   return;
@@ -154,7 +154,6 @@ const AdminDashboard = () => {
                   alert("Please enter a valid image URL (http/https ending with .png/.jpg/.jpeg/.webp/.gif).");
                   return;
                 }
-
                 try {
                   const res = await api.post("/api/admin/menu", {
                     name: newName,
@@ -230,7 +229,7 @@ const AdminDashboard = () => {
       )}
 
 
-      {activeTab === "orders" && (
+{activeTab === "orders" && (
   <div>
     <h2>Manage Orders</h2>
     <ul className="order-list">
@@ -261,15 +260,13 @@ const AdminDashboard = () => {
   <option value="Ready" disabled={o.status !== "Preparing"}>Ready</option>
   <option value="Delivered" disabled={o.status !== "Ready"}>Delivered</option>
 </select>
-
         </li>
       ))}
     </ul>
   </div>
 )}
 
-
-      {activeTab === "reservations" && (
+     {activeTab === "reservations" && (
   <div>
     <h2>Manage Reservations</h2>
     <ul className="reservation-list">
@@ -315,18 +312,17 @@ const AdminDashboard = () => {
   </div>
 )}
 
-
-      {activeTab === "feedback" && (
+{activeTab === "feedback" && (
         <div>
           <h2>Manage Feedback</h2>
           <ul className="feedback-list">
             {Array.isArray(feedback) && feedback.map((f) => (
               <li key={f._id} className="feedback-item">
                 <div className="feedback-content">
-                  <p><strong>{f.rating}⭐</strong> – {f.comment}</p>
-                  <p><strong>Name:</strong> {f.customerId?.name || "Anonymous"}</p>
-                  <p><strong>Email:</strong> {f.customerId?.email || "N/A"}</p>
-                  <p><strong>Created At:</strong> {new Date(f.createdAt).toLocaleString()}</p>
+                <p><strong>{f.rating}⭐</strong> – {f.comment}</p>
+                <p><strong>Name:</strong> {f.customerId?.name || "Anonymous"}</p>
+                <p><strong>Email:</strong> {f.customerId?.email || "N/A"}</p>
+                <p><strong>Created At:</strong> {new Date(f.createdAt).toLocaleString()}</p>
                 </div>
                 <div className="feedback-actions">
                   <button
