@@ -90,6 +90,10 @@ const Reservations = () => {
         <button onClick={() => navigate("/menu")} className="nav-btn">
           Back to Menu
         </button>
+        <button onClick={() => navigate("/my-orders")} className="nav-btn">
+          Go to My Orders
+        </button>
+
       </div>
 
       <h1>Table Reservations</h1>

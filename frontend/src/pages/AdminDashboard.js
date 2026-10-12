@@ -86,44 +86,24 @@ const AdminDashboard = () => {
 
                 { }
                 <div className="user-actions">
-                  <button
-                    className="edit-btn"
-                    onClick={async () => {
-                      const newRole = prompt("Enter new role (customer/admin):", u.role);
-                      if (!newRole) return;
-                      try {
-                        const res = await api.put(`/api/admin/users/${u._id}/role`, { role: newRole });
-                        alert("Role updated!");
-                        setUsers((prev) =>
-                          prev.map((usr) =>
-                            usr._id === u._id ? { ...usr, role: res.data.role } : usr
-                          )
-                        );
-                      } catch (err) {
-                        alert("Failed to update role");
-                        console.error(err);
-                      }
-                    }}
-                  >
-                    Update Role
-                  </button>
-
-                  <button
-                    className="delete-btn"
-                    onClick={async () => {
-                      if (!window.confirm("Are you sure you want to delete this user?")) return;
-                      try {
-                        await api.delete(`/api/admin/users/${u._id}`);
-                        alert("User deleted!");
-                        setUsers((prev) => prev.filter((usr) => usr._id !== u._id));
-                      } catch (err) {
-                        alert("Failed to delete user");
-                        console.error(err);
-                      }
-                    }}
-                  >
-                    Delete User
-                  </button>
+                  {u.role === "customer" && (
+  <button
+    className="delete-btn"
+    onClick={async () => {
+      if (!window.confirm("Are you sure you want to delete this user?")) return;
+      try {
+        await api.delete(`/api/admin/users/${u._id}`);
+        alert("User deleted!");
+        setUsers((prev) => prev.filter((usr) => usr._id !== u._id));
+      } catch (err) {
+        alert("Failed to delete user");
+        console.error(err);
+      }
+    }}
+  >
+    Delete User
+  </button>
+)}
                 </div>
               </div>
             ))}
@@ -147,6 +127,7 @@ const AdminDashboard = () => {
               type="number"
               placeholder="Price"
               value={newPrice}
+              min="1"
               onChange={(e) => setNewPrice(e.target.value)}
             />
             <input
@@ -157,6 +138,23 @@ const AdminDashboard = () => {
             />
             <button
               onClick={async () => {
+                const nameRegex = /^[A-Za-z0-9\s]+$/; // only alphabets, numbers, spaces
+                if (!newName.trim() || !nameRegex.test(newName)) {
+                  alert("Item name must contain only letters and numbers (min 1 character).");
+                  return;
+                }
+
+                if (!newPrice || isNaN(newPrice) || Number(newPrice) <= 0) {
+                  alert("Price must be a positive number.");
+                  return;
+                }
+
+                const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|webp|gif))$/i;
+                if (newImage && !urlRegex.test(newImage)) {
+                  alert("Please enter a valid image URL (http/https ending with .png/.jpg/.jpeg/.webp/.gif).");
+                  return;
+                }
+
                 try {
                   const res = await api.post("/api/admin/menu", {
                     name: newName,
@@ -233,25 +231,43 @@ const AdminDashboard = () => {
 
 
       {activeTab === "orders" && (
-        <div>
-          <h2>Manage Orders</h2>
-          <ul>
-            {Array.isArray(orders) && orders.map((o) => (
-              <li key={o._id}>
-                Order #{o._id} – {o.status}
-                <select
-                  value={o.status}
-                  onChange={(e) => handleStatusChange(o._id, e.target.value)}
-                >
-                  <option value="Preparing">Preparing</option>
-                  <option value="Ready">Ready</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  <div>
+    <h2>Manage Orders</h2>
+    <ul className="order-list">
+      {Array.isArray(orders) && orders.map((o) => (
+        <li key={o._id} className="order-card">
+          <p><strong>Customer:</strong> {o.customerId?.name || "Unknown"}</p>
+          <p><strong>Items:</strong> {o.items.map(i => i.menuItemId?.name).join(", ")}</p>
+          <p><strong>Total:</strong> ₹{o.items.reduce((sum, i) => sum + (i.menuItemId?.price || 0), 0)}</p>
+          <p><strong>Status:</strong> {o.status}</p>
+
+          <select
+  value={o.status}
+  onChange={async (e) => {
+    const newStatus = e.target.value;
+    try {
+      const res = await api.put(`/api/admin/orders/${o._id}/status`, { status: newStatus });
+      setOrders((prev) =>
+        prev.map((ord) => ord._id === o._id ? res.data : ord)
+      );
+    } catch (err) {
+      alert("Failed to update status");
+      console.error(err);
+    }
+  }}
+>
+  <option value="Pending" disabled={o.status !== "Pending"}>Pending</option>
+  <option value="Preparing" disabled={o.status !== "Pending"}>Preparing</option>
+  <option value="Ready" disabled={o.status !== "Preparing"}>Ready</option>
+  <option value="Delivered" disabled={o.status !== "Ready"}>Delivered</option>
+</select>
+
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
 
       {activeTab === "reservations" && (
   <div>

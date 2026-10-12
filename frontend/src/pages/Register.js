@@ -13,6 +13,25 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const nameRegex = /^[A-Za-z\s]{3,}$/;
+    if (!nameRegex.test(formData.name)) {
+      setError("Name must contain only letters and be at least 3 characters long.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      setError("Password must be at least 8 characters long and include letters, numbers, and special characters.");
+      return;
+    }
+
     try {
       await axios.post(`${API_BASE_URL}/api/auth/register`, formData);
       navigate('/login');

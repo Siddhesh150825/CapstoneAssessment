@@ -107,6 +107,13 @@ const Menu = ({ cartItems, setCartItems }) => {
             >
               Give Feedback
             </button>
+            <button
+              className="menu-btn"
+              style={{ marginLeft: "10px" }}
+              onClick={() => navigate("/my-orders")}
+            >
+              My Orders
+            </button>
           </div>
         </>
       )}

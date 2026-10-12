@@ -4,7 +4,7 @@ const orderSchema = new mongoose.Schema({
   customerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   items: [
     {
-      menuItemId: { type: mongoose.Schema.Types.ObjectId, ref: "MenuItem" },
+      menuItemId: { type: mongoose.Schema.Types.ObjectId, ref: "MenuItem", required: true },
       quantity: { type: Number, required: true }
     }
   ],

@@ -61,29 +61,6 @@ router.get("/users", auth(["admin"]), async (req, res) => {
   }
 });
 
-router.put("/users/:id/role", auth(["admin"]), async (req, res) => {
-  try {
-    const User = require("../models/User");
-    const { role } = req.body;
-
-    if (!["customer", "admin"].includes(role)) {
-      return res.status(400).json({ message: "Invalid role" });
-    }
-
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { role },
-      { new: true }
-    );
-
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: "Error updating user role" });
-  }
-});
-
 
 router.delete("/users/:id", auth(["admin"]), async (req, res) => {
   try {
@@ -129,17 +106,29 @@ router.get("/feedback", auth(["admin"]), async (req, res) => {
 router.put("/orders/:id/status", auth(["admin"]), async (req, res) => {
   try {
     const { status } = req.body;
-    const order = await Order.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
+    const order = await Order.findById(req.params.id);
     if (!order) return res.status(404).json({ message: "Order not found" });
-    res.json(order);
+
+    const validTransitions = {
+      Pending: ["Preparing"],
+      Preparing: ["Ready"],
+      Ready: ["Delivered"],
+      Delivered: []
+    };
+
+    if (!validTransitions[order.status].includes(status)) {
+      return res.status(400).json({ message: "Invalid status transition" });
+    }
+
+    order.status = status;
+    await order.save();
+    const updatedOrder = await order.populate("customerId", "name email");
+    res.json(updatedOrder);
   } catch (err) {
-    res.status(500).json({ message: "Error updating order status" });
+    res.status(500).json({ error: err.message });
   }
 });
+
 
 router.delete("/reservations/:id", auth(["admin"]), async (req, res) => {
   try {
