@@ -238,7 +238,7 @@ const AdminDashboard = () => {
         <li key={o._id} className="order-card">
           <p><strong>Customer:</strong> {o.customerId?.name || "Unknown"}</p>
           <p><strong>Items:</strong> {o.items.map(i => i.menuItemId?.name).join(", ")}</p>
-          <p><strong>Total:</strong> ₹{o.items.reduce((sum, i) => sum + (i.menuItemId?.price || 0), 0)}</p>
+          <p><strong>Total:</strong> ₹{o.items.reduce((sum, i) => sum + (i.menuItemId?.price || 0) * i.quantity, 0)}</p>
           <p><strong>Status:</strong> {o.status}</p>
 
           <select
@@ -246,7 +246,7 @@ const AdminDashboard = () => {
   onChange={async (e) => {
     const newStatus = e.target.value;
     try {
-      const res = await api.put(`/api/admin/orders/${o._id}/status`, { status: newStatus });
+      const res = await api.put(`/api/orders/${o._id}/status`, { status: newStatus });
       setOrders((prev) =>
         prev.map((ord) => ord._id === o._id ? res.data : ord)
       );

@@ -46,7 +46,18 @@ router.put("/:id/status", auth(["admin"]), async (req, res) => {
     if (status === "Delivered") {
       update.deliveredAt = new Date();
     }
-    const order = await Order.findByIdAndUpdate(req.params.id, update, { new: true });
+    const order = await Order.findByIdAndUpdate(req.params.id, update, { new: true })
+                  .populate({
+                  path: "items.menuItemId",
+                  model: "MenuItem",
+                  select: "name price"
+                  })
+                  .populate({
+                  path: "customerId",
+                  model: "User",
+                select: "name email"
+                });
+    ;
     res.json(order);
   } catch (err) {
     res.status(400).json({ error: err.message });
