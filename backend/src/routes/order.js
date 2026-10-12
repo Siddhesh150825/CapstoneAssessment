@@ -55,9 +55,8 @@ router.put("/:id/status", auth(["admin"]), async (req, res) => {
                   .populate({
                   path: "customerId",
                   model: "User",
-                select: "name email"
+                  select: "name email"
                 });
-    ;
     res.json(order);
   } catch (err) {
     res.status(400).json({ error: err.message });
