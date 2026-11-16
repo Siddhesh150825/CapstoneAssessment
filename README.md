@@ -13,8 +13,6 @@ It helps restaurants manage menus, orders, reservations, and feedback while givi
 - **Auth:** JWT (JSON Web Tokens)
 - **Other:** Docker, GitHub Actions (CI/CD)
 
----
-
 ## Features
 
 ### Customer
